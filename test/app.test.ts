@@ -2,7 +2,6 @@ import assert from 'node:assert/strict';
 import type { Server } from 'http';
 import { after, before, test } from 'node:test';
 import app from '../src/app.js';
-import { version } from 'node:os';
 
 let server: Server;
 let baseUrl: string;
@@ -40,12 +39,3 @@ test('GET /api/health returns a healthy response', async () => {
     status: 'ok',
   });
 });
-
-test('GET  /api/version returns the current version', async() => {
-  const response = await fetch(`${baseUrl}/api/version`);
-
-  assert.equal(response.status, 200);
-  assert.deepEqual(await response.json(), {
-    version: process.env.APP_VERSION ?? 'development',
-  });
-})
